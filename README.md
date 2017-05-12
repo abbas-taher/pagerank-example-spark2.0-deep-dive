@@ -1,8 +1,8 @@
 ## Tutorial 101: PageRank Example in Spark 2.0
 ### Understanding the Algorithm & Spark Code Implementation
  
-  The Apache Spark PageRank is a good example for learning how to use Spark. The sample program computes the PageRank of URLs from an input file which should be in format of:
- <br> &nbsp; url_1 &nbsp;  url_4
+  The Apache Spark PageRank is a good example for learning how to use Spark. The sample program computes the PageRank of URLs from an input file which should be in format of: <br>
+ &nbsp; url_1 &nbsp;  url_4
  <br> &nbsp; url_2 &nbsp;  url_1
  <br> &nbsp; url_3 &nbsp;  url_2
  <br> &nbsp; url_3 &nbsp;  url_1
@@ -16,9 +16,9 @@ where each URL and their neighbors are separated by space(s). The above input da
 The SparkPageRank.scala code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs and its Scala based functional API. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works to uncover its implementation detail and how it actually runs within SPARK. 
 
 ### How the Algorithm Works
-The PageRank algorithm outputs a probability distribution used to represent the likelihood that a person randomly clicking on web page links will arrive at a particular web page. If we run the PageRank program with the input data file and indicate 20 iterations we shall get the following output:
+The PageRank algorithm outputs a probability distribution used to represent the likelihood that a person randomly clicking on web page links will arrive at a particular web page. If we run the PageRank program with the input data file and indicate 20 iterations we shall get the following output: <br>
 
-<br> &nbsp; url_4 has rank: 1.3705281840649928.
+&nbsp; url_4 has rank: 1.3705281840649928.
 <br> &nbsp; url_2 has rank: 0.4613200524321036.
 <br> &nbsp; url_3 has rank: 0.7323900229505396.
 <br> &nbsp; url_1 has rank: 1.4357617405523626. 
