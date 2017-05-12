@@ -35,7 +35,7 @@ The results clearly indicates that URL_1 has the highest page rank followed by U
 
 If a URL (page) is referenced by other URLs then its rank increases because being referenced means that it is important which is the case of URL_1. While if an important URL like URL_1 references other URLs this will increase the destination’s ranking which is the case of URL_4 that is referenced by URL_1; that is the reason why URL_4 ranking is higher than the other two URLs (URL_2 & URL_3). If we look at the various arrows in the above diagram we can see that URL_2 is referenced the least and that is the reason why it has the lowest ranking.
 
-The rest of the article will take a deeper look at the Scala code that implements the algorithm in Spark 2.0. The code is made of 3 main parts as shown in the diagram below. The 1st part reads the data file then each URL is given a seed rank of 1.0. The third part of the code contains the main loop which calculates the contributions by joining the links and ranks data at each iteration and then recalculates the ranks based on that contribtion. 
+The rest of the article will take a deeper look at the Scala code that implements the algorithm in Spark 2.0. The code is made of 3 main parts as shown in the diagram below. The 1st part reads the data file then each URL is given a seed value in rank<sub>0<\sub>. The third part of the code contains the main loop which calculates the contributions by joining the links and ranks data at each iteration and then recalculates the ranks based on that contribtion. 
 
 <img src="/images/img-2.jpg" width="806" height="594">
 
