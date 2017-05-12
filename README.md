@@ -12,7 +12,7 @@
 
 where each URL and their neighbors are separated by space(s). The above input data can be represented by the following graph. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
 
-<img src="/images/img-1.jpg" width="447" height="383">
+<img src="/images/img-1.jpg" width="342" height="293">
 
 The SparkPageRank.scala code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs and its Scala based functional API. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works to uncover its implementation detail and how it actually runs within SPARK. 
 
