@@ -14,7 +14,7 @@ Each URL and their neighbors are separated by space(s). The above input data can
 
 <img src="/images/img-1.jpg" width="342" height="293">
 
-The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
+The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup)I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
 ## Contents:
 - How the Algorith Works
@@ -40,7 +40,7 @@ The rest of the article will take a deeper look at the Scala code that implement
 <img src="/images/img-2.jpg" width="806" height="594">
 
 ## Running the PageRank Program in Spark
-To run the PageRank program you need to pass the class name, jar location, input data file and number of iterations. The command looks like the following (please refer to the [Project Setup article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup): 
+To run the PageRank program you need to pass the class name, jar location, input data file and number of iterations. The command looks like the following (please refer to the [Project Setup Article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup): 
 
       $ cd /usr/hdp/current/spark2-client
       $ export SPARK_MAJOR_VERSION=2
