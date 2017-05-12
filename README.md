@@ -91,15 +91,19 @@ The ranks RDD is initially populated with a value=1.0 for all the URLs. In the n
 
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
-Here is the heart of the algorithm where the contributions are calculated and the ranks are recalculated based on the contributions.
+Here is the heart of the algorithm where the contributions are calculated and the ranks are recalculated based on those contributions.
 
     for (i <- 1 to iters) {
-       val contribs = links.join(ranks).values.flatMap{ case (urls, rank) =>
-           val size = urls.size
-           urls.map(url => (url, rank / size))
-        }
-      ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _)
+    (1)   val contribs = links.join(ranks)
+    (2)          .values
+    (3)          .flatMap{ case (urls, rank) =>
+                       val size = urls.size
+    (4)                   urls.map(url => (url, rank / size))
+                 }
+    (5)   ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _)
     }
     
-T    
+We shall describe here how the algorithm works, however for a visual oriented reader you can refer to the diagram below. 
+
+Lets start by decompose the algorithm into the varoius RDD generated in each line of code. In line 1, the links RDD and the ranks RDD are joined together.
 
