@@ -2,12 +2,12 @@
 ### Understanding the Algorithm & Spark Code Implementation
  
   The Apache Spark PageRank is a good example for learning how to use Spark. The sample program computes the PageRank of URLs from an input file which should be in format of:
- <br> &nbsp; url_1  &emsp; url_4
+ <br> &nbsp; url_1 &nbsp;  url_4
  <br> &nbsp; url_2 &nbsp;  url_1
- <br> &nbsp; url_3   url_2
- <br> &nbsp; url_3   url_1
- <br> &nbsp; url_4   url_3
- <br> &nbsp; url_4   url_1  
+ <br> &nbsp; url_3 &nbsp;  url_2
+ <br> &nbsp; url_3 &nbsp;  url_1
+ <br> &nbsp; url_4 &nbsp;  url_3
+ <br> &nbsp; url_4 &nbsp;  url_1  
 
 where each URL and their neighbors are separated by space(s). The above input data can be represented by the following graph. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
 
@@ -18,10 +18,10 @@ The SparkPageRank.scala code looks deceivingly simple but to understand how thin
 ### How the Algorithm Works
 The PageRank algorithm outputs a probability distribution used to represent the likelihood that a person randomly clicking on web page links will arrive at a particular web page. If we run the PageRank program with the input data file and indicate 20 iterations we shall get the following output:
 
-url_4 has rank: 1.3705281840649928. <\br>
-url_2 has rank: 0.4613200524321036. <\br>
-url_3 has rank: 0.7323900229505396. <\br>
-url_1 has rank: 1.4357617405523626. <\br>
+<br> &nbsp; url_4 has rank: 1.3705281840649928.
+<br> &nbsp; url_2 has rank: 0.4613200524321036.
+<br> &nbsp; url_3 has rank: 0.7323900229505396.
+<br> &nbsp; url_1 has rank: 1.4357617405523626. 
 
 The results clearly indicates that URL_1 has the highest page rank followed by URL_4 and then URL_3 & last URL_2. The algorithm works in the following manner:
 
@@ -29,7 +29,7 @@ If a URL (page) is referenced by other URLs then its rank increases because bein
 
 The rest of the article will take a deeper look at the Scala code that implements the algorithm. The code is made of 3 main parts. 
 
-SparkPageRank Program: Part#1
+### SparkPageRank Program: Part#1
 To run the PageRank program you need to pass the class name, jar location, input data file and number of iterations. The command looks like the following (please refer to the Project Setup article): 
 
 ./bin/spark-submit --class com.scalaproj.SparkPageRank --master yarn --num-executors 1 --driver-memory 512m --executor-memory 512m --executor-cores 1 ~/testing/jars/pagerank.jar /input/pagerank_data.txt 20 
@@ -58,11 +58,11 @@ Line #3 & 4 in the above code splits the string (or whole line in the input file
 
 and the first RDD of pairs are created the program runs a groupByKey command to produce a second RDD (links). The resultant links for the input data is as follows:
 
- Key     Array (iterable)
- url_4   [url_3, url_1]
- url_3   [url_2, url_1]
- url_2   [url_1]
- url_1   [url_4]
+<br> &nbsp; Key   &emsp;    Array (iterable)
+<br> &nbsp; url_4  &emsp;   [url_3, url_1]
+<br> &nbsp; url_3  &emsp;   [url_2, url_1]
+<br> &nbsp; url_2   &emsp;  [url_1]
+<br> &nbsp; url_1   &emsp;  [url_4]
  
 Actually the Array in the above table is not a true array it is an iterator on the resultant array of urls. This is what the groupByKey command produces when applied on an RDD. This is an important and powerful construct in Spark and every programmer needs to understand it well.
 
@@ -75,11 +75,11 @@ The code in this part is made of a single line:
 
 which creates a third RDD that is also made of a tuples of pairs, but in this case a string & double pair. 
 
-  Key    Value (Double) 
-  url_4   1.0
-  url_3   1.0
-  url_2   1.0
-  url_1   1.0
+<br> &nbsp;  Key  &emsp;  Value (Double) 
+<br> &nbsp;  url_4 &emsp;  1.0
+<br> &nbsp;  url_3 &emsp;  1.0
+<br> &nbsp;  url_2 &emsp;  1.0
+<br> &nbsp;  url_1 &emsp;  1.0
  
 
 The ranks RDD is initially populated by 1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD will change to become eventually the end result page rank we mentioned above.  
