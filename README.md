@@ -52,22 +52,21 @@ In case you would like to use the bash command that comes with Spark you can run
 
 
 ## Part 1: Reading the Data File
-PageRank program is made of two parts. The first part is as follows:
+The code for the 1st part of the program is as follows:
 
-     (1)    val iters = if (args.length > 1) args(1).toInt else 10   // sets iteration from argument
-     (2)    val lines = spark.read.textFile(args(0)).rdd    // reading text file into Dataset[String] -> RDD1
+     (1)    val iters = if (args.length > 1) args(1).toInt else 10   // sets iteration from argument (in our case iter=20)
+     (2)    val lines = spark.read.textFile(args(0)).rdd    // read text file into Dataset[String] -> RDD1
      (3)    val pairs = lines.map{ s =>
-              val parts = s.split("\\s+")
-     (4)              (parts(0), parts(1))                 // create the tuple <url, url> for each line in the file.
+              val parts = s.split("\\s+")                  // Splits a line into an array of 2 elements according space(s)
+     (4)              (parts(0), parts(1))                 // create the tuple <url, url> for each line in the file
                   }
-
      (5)    val links = pairs.distinct().groupByKey().cache()   // RDD1 <string, string> -> RDD2<string, iterable>   
 
-The first line of the code above sets the iteration from the argument. The second line reads the input data file (file name passed as the arg0)) produces a Dataset of strings and then transforms the Dataset into an RDD where each line in the file is one whole string within the RDD. You can think of an RDD is a sort of list that is special to Spark because the data within the RDD is distributed among the various nodes. 
+The 2nd line of the code reads the input data file and produce a Dataset of strings which are then transformed into an RDD with each line in the file is one whole string within the RDD. You can think of an RDD as list that is special to Spark because the data within the RDD is distributed among the various nodes. 
 
-Please note that I have introduced a pair variable into the original code to make the program more readable.
+<it> Please note that I have introduced a pair variable into the original code to make the program more readable.<\it>
 
-Line #3 & 4 in the above code splits the string (or whole line in the input file) into a tuple of pairs of two URL strings. Once the whole file is split an array is generated with two elements for each line. In Line#4 of the code is where the transformation occurs from the array to the tuple.
+The 3rd line splits the string (or whole line in the input file) into a tuple of pairs of two URL strings. Once the whole file is split an array is generated with two elements for each line. In Line#4 of the code is where the transformation occurs from the array to the tuple.
 
 and the first RDD of pairs are created the program runs a groupByKey command to produce a second RDD (links). The resultant links for the input data is as follows:<br>
 
