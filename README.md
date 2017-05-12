@@ -18,10 +18,10 @@ The SparkPageRank.scala code looks deceivingly simple but to understand how thin
 ### How the Algorithm Works
 The PageRank algorithm outputs a probability distribution used to represent the likelihood that a person randomly clicking on web page links will arrive at a particular web page. If we run the PageRank program with the input data file and indicate 20 iterations we shall get the following output:
 
-url_4 has rank: 1.3705281840649928.
-url_2 has rank: 0.4613200524321036.
-url_3 has rank: 0.7323900229505396.
-url_1 has rank: 1.4357617405523626.
+url_4 has rank: 1.3705281840649928. <\br>
+url_2 has rank: 0.4613200524321036. <\br>
+url_3 has rank: 0.7323900229505396. <\br>
+url_1 has rank: 1.4357617405523626. <\br>
 
 The results clearly indicates that URL_1 has the highest page rank followed by URL_4 and then URL_3 & last URL_2. The algorithm works in the following manner:
 
