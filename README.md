@@ -57,7 +57,7 @@ The code for the 1st part of the program is as follows:
      (2)    val lines = spark.read.textFile(args(0)).rdd   // read text file into Dataset[String] -> RDD1
             val pairs = lines.map{ s =>
      (3)         val parts = s.split("\\s+")               // Splits a line into an array of 2 elements according space(s)
-     (4)              (parts(0), parts(1))                 // create the tuple <url, url> for each line in the file
+     (4)              (parts(0), parts(1))                 // create the parts<url, url> for each line in the file
                   }
      (5)    val links = pairs.distinct().groupByKey().cache()   // RDD1 <string, string> -> RDD2<string, iterable>   
 
@@ -65,7 +65,7 @@ The 2nd line of the code reads the input data file and produce a Dataset of stri
 
 In the 3rd line of the code, the split command generates for each line (whole string) an array with two elements. In the 4th line each of the two elements of the array are accessed and then used to produce a key/value pair. The last line in the code applies the groupByKey command on the key/value pair RDD to produce the links RDD, which is also a key/value pair. Thus, the resultant links RDD for the input data file will be as follows:<br>
 
-&nbsp; Key   &emsp;    Array (iterable)
+&nbsp; Key   &emsp;    Array (Iter)
 <br> &nbsp; url_4  &emsp;   [url_3, url_1]
 <br> &nbsp; url_3  &emsp;   [url_2, url_1]
 <br> &nbsp; url_2   &emsp;  [url_1]
@@ -77,9 +77,9 @@ Note that the Array in the above is not a true array it is actually an iterator 
  
 The code in this part is made of a single line
 
-    var ranks = links.mapValues(v => 1.0)    // create the ranks <key,one> RDD from the links RDD 
+    var ranks = links.mapValues(v => 1.0)    // create the ranks <key,one> RDD from the links <key, Iter> RDD
 
-which creates a key/value pair RDD as follows: <br>
+which creates a key/value pair RDD from the links RDD as follows: <br>
 
 &nbsp;  Key  &emsp;  Value (Double) 
 <br> &nbsp;  url_4 &emsp;  1.0
@@ -87,10 +87,19 @@ which creates a key/value pair RDD as follows: <br>
 <br> &nbsp;  url_2 &emsp;  1.0
 <br> &nbsp;  url_1 &emsp;  1.0
  
-The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to become, after 20 iterations, the PageRank outputs a probability scores mentioned previously.  
+The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to become, after 20 iterations, the PageRank probability scores mentioned previously.  
 
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
+Here is the heart of the algorithm where the contributions are calculated and the ranks are recalculated based on the contributions.
 
-Here is the core of the algorithm and where 
+    for (i <- 1 to iters) {
+       val contribs = links.join(ranks).values.flatMap{ case (urls, rank) =>
+           val size = urls.size
+           urls.map(url => (url, rank / size))
+        }
+      ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _)
+    }
+    
+T    
 
