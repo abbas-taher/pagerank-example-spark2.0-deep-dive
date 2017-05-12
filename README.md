@@ -2,6 +2,7 @@
 ### Understanding the Algorithm & Spark Code Implementation
  
   The Apache Spark PageRank is a good example for learning how to use Spark. The sample program computes the PageRank of URLs from an input file which should be in format of: <br>
+  
  &nbsp; url_1 &nbsp;  url_4
  <br> &nbsp; url_2 &nbsp;  url_1
  <br> &nbsp; url_3 &nbsp;  url_2
@@ -56,9 +57,9 @@ Please note that I have introduced a pair variable into the original code to mak
 
 Line #3 & 4 in the above code splits the string (or whole line in the input file) into a tuple of pairs of two URL strings. Once the whole file is split an array is generated with two elements for each line. In Line#4 of the code is where the transformation occurs from the array to the tuple.
 
-and the first RDD of pairs are created the program runs a groupByKey command to produce a second RDD (links). The resultant links for the input data is as follows:
+and the first RDD of pairs are created the program runs a groupByKey command to produce a second RDD (links). The resultant links for the input data is as follows:<br>
 
-<br> &nbsp; Key   &emsp;    Array (iterable)
+&nbsp; Key   &emsp;    Array (iterable)
 <br> &nbsp; url_4  &emsp;   [url_3, url_1]
 <br> &nbsp; url_3  &emsp;   [url_2, url_1]
 <br> &nbsp; url_2   &emsp;  [url_1]
@@ -73,9 +74,9 @@ The code in this part is made of a single line:
 
   var ranks = links.mapValues(v => 1.0)    // create a new RDD <key,one>
 
-which creates a third RDD that is also made of a tuples of pairs, but in this case a string & double pair. 
+which creates a third RDD that is also made of a tuples of pairs, but in this case a string & double pair. <br>
 
-<br> &nbsp;  Key  &emsp;  Value (Double) 
+&nbsp;  Key  &emsp;  Value (Double) 
 <br> &nbsp;  url_4 &emsp;  1.0
 <br> &nbsp;  url_3 &emsp;  1.0
 <br> &nbsp;  url_2 &emsp;  1.0
