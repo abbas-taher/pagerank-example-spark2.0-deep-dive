@@ -40,7 +40,7 @@ The rest of the article will take a deeper look at the Scala code that implement
 <img src="/images/img-2.jpg" width="806" height="594">
 
 ## Running the PageRank Program in Spark
-To run the PageRank program you need to pass the class name, jar location, input data file and number of iterations. The command looks like the following (please refer to the Project Setup article): 
+To run the PageRank program you need to pass the class name, jar location, input data file and number of iterations. The command looks like the following (please refer to the [Project Setup article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup): 
 
       $ cd /usr/hdp/current/spark2-client
       $ export SPARK_MAJOR_VERSION=2
@@ -63,7 +63,7 @@ The code for the 1st part of the program is as follows:
 
 The 2nd line of the code reads the input data file and produce a Dataset of strings which are then transformed into an RDD with each line in the file being one whole string within the RDD. You can think of an RDD as a list that is special to Spark because the data within the RDD is distributed among the various nodes. Note that I have introduced a "pairs" variable into the original code to make the program more readable.
 
-In the 3rd line of the code, the split command generates for each line (whole string) an array with two elements. In 4th line each of the two elements of the array are accessed and then used to produce a key/value pair. The last line in the code applies the groupByKey command on the key/value pair RDD to produce the links RDD; which is also a key/value pair. Thus, the resultant links RDD for the input data file will be as follows:<br>
+In the 3rd line of the code, the split command generates for each line (whole string) an array with two elements. In the 4th line each of the two elements of the array are accessed and then used to produce a key/value pair. The last line in the code applies the groupByKey command on the key/value pair RDD to produce the links RDD, which is also a key/value pair. Thus, the resultant links RDD for the input data file will be as follows:<br>
 
 &nbsp; Key   &emsp;    Array (iterable)
 <br> &nbsp; url_4  &emsp;   [url_3, url_1]
@@ -75,11 +75,11 @@ Note that the Array in the above is not a true array it is actually an iterator 
 
 ## Part 2: Populating the Ranks Data - Initial Seeds 
  
-The code in this part is made of a single line:
+The code in this part is made of a single line
 
-    var ranks = links.mapValues(v => 1.0)    // create a new RDD <key,one>
+    var ranks = links.mapValues(v => 1.0)    // create the ranks <key,one> RDD from the links RDD 
 
-which creates a third RDD that is also made of a key/value pair, but in this case a <string,double> pair. <br>
+which creates a key/value pair RDD as follows: <br>
 
 &nbsp;  Key  &emsp;  Value (Double) 
 <br> &nbsp;  url_4 &emsp;  1.0
@@ -87,7 +87,7 @@ which creates a third RDD that is also made of a key/value pair, but in this cas
 <br> &nbsp;  url_2 &emsp;  1.0
 <br> &nbsp;  url_1 &emsp;  1.0
  
-The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to become eventually, after 20 iterations, the PageRank scores mentioned above.  
+The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to become, after 20 iterations, the PageRank outputs a probability scores mentioned previously.  
 
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
