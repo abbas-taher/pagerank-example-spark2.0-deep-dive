@@ -66,6 +66,7 @@ object SparkPageRank {
       val parts = s.split("\\s+")
       (parts(0), parts(1))
     }.distinct().groupByKey().cache()
+    
     var ranks = links.mapValues(v => 1.0)
 
     for (i <- 1 to iters) {
