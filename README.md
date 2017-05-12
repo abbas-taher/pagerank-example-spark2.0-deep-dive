@@ -14,12 +14,14 @@ Each URL and their neighbors are separated by space(s). The above input data can
 
 <img src="/images/img-1.jpg" width="342" height="293">
 
-The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs and Spark's Scala based functional API. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
+The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
 ## Contents:
 - How the Algorith Works
 - Running the PageRank Program in Spark
-- Set Libraries Paths & Generate Jar
+- Part 1: Reading the Data File
+- Part 2: Populating the Ranks Data - Initial Seeds
+- Part 3: Looping and Calculating Contributions & Recalcualting Ranks
 
 ## How the Algorithm Works
 The PageRank algorithm outputs a probability distribution used to represent the likelihood that a person randomly clicking on web page links will arrive at a particular web page. If we run the PageRank program with the input data file and indicate 20 iterations we shall get the following output: <br>
@@ -94,7 +96,7 @@ which creates a third RDD that is also made of a tuples of pairs, but in this ca
 
 The ranks RDD is initially populated with N=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD will change to become eventually the end result page rank we mentioned above.  
 
-## SparkPageRank Program: Part#3
+## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
 
 Here is the core of the algorithm and where 
