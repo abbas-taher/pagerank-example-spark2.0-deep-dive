@@ -10,7 +10,7 @@
  <br> &nbsp; url_4 &nbsp;  url_3
  <br> &nbsp; url_4 &nbsp;  url_1  
 
-Each URL and their neighbors are separated by space(s). The above input data can be represented by the following graph. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
+Each URL and their neighbors are separated by space(s). The above input data can be represented by the graph below. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
 
 <img src="/images/img-1.jpg" width="342" height="293">
 
