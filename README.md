@@ -62,9 +62,7 @@ The code for the 1st part of the program is as follows:
                   }
      (5)    val links = pairs.distinct().groupByKey().cache()   // RDD1 <string, string> -> RDD2<string, iterable>   
 
-The 2nd line of the code reads the input data file and produce a Dataset of strings which are then transformed into an RDD with each line in the file is one whole string within the RDD. You can think of an RDD as list that is special to Spark because the data within the RDD is distributed among the various nodes. 
-
-<it> Please note that I have introduced a pair variable into the original code to make the program more readable.<\it>
+The 2nd line of the code reads the input data file and produce a Dataset of strings which are then transformed into an RDD with each line in the file is one whole string within the RDD. You can think of an RDD as list that is special to Spark because the data within the RDD is distributed among the various nodes. <i> Please note that I have introduced a pair variable into the original code to make the program more readable.<\i>
 
 The 3rd line splits the string (or whole line in the input file) into a tuple of pairs of two URL strings. Once the whole file is split an array is generated with two elements for each line. In Line#4 of the code is where the transformation occurs from the array to the tuple.
 
