@@ -1,7 +1,7 @@
 ## Tutorial 101: PageRank Example in Spark 2.0
 ### Understanding the Algorithm & Spark Code Implementation
  
-  The Apache Spark PageRank is a good example for learning how to program for Spark 2.0 using Scala. The sample program computes the PageRank of URLs from an input file that has the following format: <br>
+  The Apache [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") is a good example for learning how to program for Spark 2.0 using Scala. The sample program computes the PageRank of URLs from an input file that has the following format: <br>
   
  &nbsp; url_1 &nbsp;  url_4
  <br> &nbsp; url_2 &nbsp;  url_1
@@ -14,7 +14,7 @@ Each URL and their neighbors are separated by space(s). The above input data can
 
 <img src="/images/img-1.jpg" width="342" height="293">
 
-The [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs and Spark's Scala based functional API. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
+The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs and Spark's Scala based functional API. In a previous article I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
 ## Contents:
 - How the Algorith Works
