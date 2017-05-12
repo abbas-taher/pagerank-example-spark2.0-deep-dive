@@ -2,7 +2,7 @@
 ### Understanding the Algorithm & Spark Code Implementation
  
   The Apache Spark PageRank is a good example for learning how to use Spark. The sample program computes the PageRank of URLs from an input file which should be in format of:
- <br> &emsp url_1  &emsp &emsp url_4
+ <br> &nbsp; url_1  &nbsp; &emsp; url_4
  <br>  url_2   url_1
  <br>  url_3   url_2
  <br>  url_3   url_1
