@@ -95,11 +95,11 @@ Here is the Spark code for the 4 steps above:
     (5)   ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _) // ranks RDD
     }
     
-In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongst the URLs it references. For example URL_3 references URL_1 & URL_2 so it contribution is 1/2 = 0.5 for each of the URLs it references. The diagram below depicts the various RDD generated and the corresponding key/value pairs produced in the first iteration. 
+In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongst the URLs it references. The diagram below depicts the various RDD generated and the corresponding key/value pairs produced in the first iteration. 
 
 <img src="/images/img-3.jpg" width="722" height="639">
 
-In the diagram below we depict the contributions and ranks in the first two iterations. For example, in the first iteration, URL_2 recieves the seed ranking of 1.0 which is split in half  recieves has a rank of 0.57 which results from
+In the diagram below we depict the contributions and ranks in the first two iterations. In the first iteration, for example URL_3 references URL_1 & URL_2 so it contribution is 1/2 = 0.5 for each of the URLs it references. When the rank is calculated URL_3 get a rank of 0.57 (0.15 + 0.85 * 0.5). The 0.57 rank is then passed to the next contribution cycle. In the second iteration, the contribution of URL_3 is once again split in half 0.57 /2 = 0.285.
 
 <img src="/images/img-4.jpg" width="746" height="477">
 
@@ -110,3 +110,5 @@ At the end of the 20 iterations the resultant ranks converges to the output dist
      url_3 has rank: 0.7323900229505396.
      url_1 has rank: 1.4357617405523626.
  
+ ### Concluding Remarks
+We can clearly see now after this deep dive that the PageRank sample program that comes with Spark 2.0 looks deceivingly simple. The code is both compact and efficient. To understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. Programming in Spark 2.0 requires unraveling those RDDs that are implicitly generated on your behalf. 
