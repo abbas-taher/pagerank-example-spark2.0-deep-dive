@@ -99,7 +99,7 @@ In line 1, the links RDD and the ranks RDD are joined together to form RDD1. The
 
 <img src="/images/img-3.jpg" width="722" height="639">
 
-In the diagram below we depict the contribution cycle in the first two iterations.
+In the diagram below we depict the contributions and ranks in the first two iterations. For example, in the first iteration, URL_2 recieves the seed ranking of 1.0 which is split in half  recieves has a rank of 0.57 which results from
 
 <img src="/images/img-4.jpg" width="746" height="477">
 
