@@ -1,7 +1,7 @@
 ## Tutorial 101: PageRank Example in Spark 2.0
 ### Understanding the Algorithm & Spark Implementation Program
  
-  The Apache [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") is a good example to learn how to program in Spark 2.0 using Scala. The sample program computes the PageRank of URLs from an input file that has the following format: <br>
+  The Apache [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") is a good example to learn how to program in Spark 2.0 using Scala. The sample program computes the PageRank of URLs from input [data file](/urldata?raw=true "URLData") that has the following format: <br>
   
  &nbsp; url_1 &nbsp;  url_4
  <br> &nbsp; url_2 &nbsp;  url_1
