@@ -99,7 +99,9 @@ In line 1, the links RDD and the ranks RDD are joined together to form RDD1. The
 
 <img src="/images/img-3.jpg" width="722" height="639">
 
-In the diagram below we depict the contribution cycle in the first three iterations.
+In the diagram below we depict the contribution cycle in the first two iterations.
+
+<img src="/images/img-4.jpg" width="746" height="477">
 
 At the end of the 20 iterations the resultant ranks converges to the output distribution:
 
