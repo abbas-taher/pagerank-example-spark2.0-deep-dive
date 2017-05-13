@@ -1,18 +1,9 @@
 ## Tutorial 101: PageRank Example in Spark 2.0
 ### Understanding the Algorithm & Spark Implementation Program
  
-  The Apache [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") is a good example to learn how to program in Spark 2.0 using Scala. The sample program computes the PageRank of URLs from input [data file](/urldata.txt?raw=true "URLData") that has the following format: <br>
-  
- &nbsp; url_1 &nbsp;  url_4
- <br> &nbsp; url_2 &nbsp;  url_1
- <br> &nbsp; url_3 &nbsp;  url_2
- <br> &nbsp; url_3 &nbsp;  url_1
- <br> &nbsp; url_4 &nbsp;  url_3
- <br> &nbsp; url_4 &nbsp;  url_1  
+  The Apache [SparkPageRank.scala](/SparkPageRank.scala?raw=true "SparkPageRank") is a good example to learn how to program in Spark 2.0 using Scala. The sample program computes the PageRank of URLs from input [data file](/urldata.txt?raw=true "URLData"). Each URL and their neighbors are separated by space(s). The input data and their graph representation are depicted below. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
 
-Each URL and their neighbors are separated by space(s). The above input data can be represented by the graph below. For example, URL_3 references URL_1 & URL_2 while it is referenced by URL_4.  
-
-<img src="/images/img-1.jpg" width="342" height="293">
+<img src="/images/img-1.jpg" width="648" height="338">
 
 The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup)I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
