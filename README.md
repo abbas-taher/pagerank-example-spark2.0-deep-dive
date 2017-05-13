@@ -5,7 +5,7 @@
 
 <img src="/images/img-1.jpg" width="648" height="338">
 
-The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup)I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
+In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup) I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
 ## Contents:
 - How the Algorith Works
@@ -24,9 +24,12 @@ The PageRank algorithm outputs a probability distribution that represents the li
  
 The results clearly indicates that URL_1 has the highest page rank followed by URL_4 and then URL_3 & last URL_2. The algorithm works in the following manner:
 
-If a URL (page) is referenced by other URLs then its rank increases because being referenced means that it is important which is the case of URL_1. While if an important URL like URL_1 references other URLs this will increase the destination’s ranking which is the case of URL_4 that is referenced by URL_1; that is the reason why URL_4 ranking is higher than the other two URLs (URL_2 & URL_3). If we look at the various arrows in the above diagram we can see that URL_2 is referenced the least and that is the reason why it has the lowest ranking.
+- If a URL (page) is referenced by other URLs then its rank increases because being referenced means that it is important which is the case of URL_1. 
+- If an important URL like URL_1 references other URLs like URL_4 this will increase the destination’s ranking - 
 
-The rest of the article will take a deeper look at the Scala code that implements the algorithm in Spark 2.0. The code is made of 3 main parts as shown in the diagram below. The 1st part reads the data file then each URL is given a seed value in rank0. The third part of the code contains the main loop which calculates the contributions by joining the links and ranks data at each iteration and then recalculates the ranks based on that contribtion. 
+Given the above it becomes obvious why URL_4's ranking is higher than the other two URL_2 & URL_3. If we look at the various arrows in the above diagram we can also see that URL_2 is referenced the least and that is why it gets the lowest ranking.
+
+The rest of the article will take a deeper look at the Scala code that implements the algorithm in Spark 2.0. The code looks deceivingly simple but to understand how things actually work requires a deeper understanding of Spark RDDs, Spark's Scala based functional API, as well as Page Ranking formula. The code is made of 3 main parts as shown in the diagram below. The 1st part reads the data file then each URL is given a seed value in rank0. The third part of the code contains the main loop which calculates the contributions by joining the links and ranks data at each iteration and then recalculates the ranks based on that contribtion. 
 
 <img src="/images/img-2.jpg" width="806" height="594">
 
