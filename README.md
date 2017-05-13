@@ -24,8 +24,8 @@ The PageRank algorithm outputs a probability distribution that represents the li
  
 The results clearly indicates that URL_1 has the highest page rank followed by URL_4 and then URL_3 & last URL_2. The algorithm works in the following manner:
 
-- If a URL (page) is referenced by other URLs then its rank increases because being referenced means that it is important which is the case of URL_1. 
-- If an important URL like URL_1 references other URLs like URL_4 this will increase the destination’s ranking - 
+- If a URL (page) is referenced the most by other URLs then its rank increases, because being referenced means that it is important which is the case of URL_1. 
+- If an important URL like URL_1 references other URLs like URL_4 this will increase the destination’s ranking
 
 Given the above it becomes obvious why URL_4's ranking is higher than the other two URL_2 & URL_3. If we look at the various arrows in the above diagram we can also see that URL_2 is referenced the least and that is why it gets the lowest ranking.
 
@@ -73,7 +73,7 @@ The code in this part is made of a single line
 
     var ranks = links.mapValues(v => 1.0)    // create the ranks <key,one> RDD from the links <key, Iter> RDD
 
-which creates a key/value pair RDD from the links RDD as follows: <br>
+which creates "ranks" - a key/value pair RDD by taking the key from the links RDD and assigning 1.0 to each key. The ranks RDD will look as follows: <br>
 
 &nbsp;  Key  &emsp;  Value (Double) 
 <br> &nbsp;  url_4 &emsp;  1.0
@@ -81,7 +81,7 @@ which creates a key/value pair RDD from the links RDD as follows: <br>
 <br> &nbsp;  url_2 &emsp;  1.0
 <br> &nbsp;  url_1 &emsp;  1.0
  
-The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to become, after 20 iterations, the PageRank probability scores mentioned previously.  
+The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to converge, after 20 iterations, into the PageRank probability scores mentioned previously.  
 
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
