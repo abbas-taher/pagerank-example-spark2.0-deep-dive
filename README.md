@@ -99,6 +99,6 @@ The corresponding code is as follows:
 The diagram below depicts the various RDD generated and the corresponding key/value pairs produced. In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongs the URLs it references. For example URL_3 references URL_
 
 
-<img src="/images/img-3.jpg" width="806" height="594">
+<img src="/images/img-3.jpg" width="722" height="639">
 
 Each 
