@@ -78,13 +78,12 @@ The above code creates "ranks0" - a key/value pair RDD by taking the key (URL) f
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
 This part is the heart of the PageRank algorithm. In each iteration, the contributions are calculated and the ranks are recalculated based on those contributions. The algorithm has 4 steps:
-
 <br> &nbsp; 1- Start the algorithm with each page at rank 1
 <br> &nbsp; 2- Calculate URL contribution: contrib = rank/size
 <br> &nbsp; 3- Set each URL new rank = 0.15 + 0.85 x contrib
 <br> &nbsp; 4- Iterate to step 2 with the new rank 
 
-The corresponding code is as follows:
+Here is the Spark code for the 4 steps above:
 
     for (i <- 1 to iters) {
     (1)   val contribs = links.join(ranks)         // join  -> RDD1
@@ -96,9 +95,16 @@ The corresponding code is as follows:
     (5)   ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _) // ranks RDD
     }
     
-The diagram below depicts the various RDD generated and the corresponding key/value pairs produced. In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongs the URLs it references. For example URL_3 references URL_
-
+In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongst the URLs it references. For example URL_3 references URL_1 & URL_2 so it contribution is 1/2 = 0.5 for each of the URLs it references. The diagram below depicts the various RDD generated and the corresponding key/value pairs produced in the first iteration. 
 
 <img src="/images/img-3.jpg" width="722" height="639">
 
-Each 
+In the diagram below we depict the contribution cycle in the first three iterations.
+
+At the end of the 20 iterations the resultant ranks converges to the output distribution:
+
+     url_4 has rank: 1.3705281840649928.
+     url_2 has rank: 0.4613200524321036.
+     url_3 has rank: 0.7323900229505396.
+     url_1 has rank: 1.4357617405523626.
+ 
