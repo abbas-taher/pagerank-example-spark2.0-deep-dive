@@ -73,37 +73,32 @@ The code in this part is made of a single line
 
     var ranks = links.mapValues(v => 1.0)    // create the ranks <key,one> RDD from the links <key, Iter> RDD
 
-which creates "ranks" - a key/value pair RDD by taking the key from the links RDD and assigning 1.0 to each key. The ranks RDD will look as follows: <br>
-
-&nbsp;  Key  &emsp;  Value (Double) 
-<br> &nbsp;  url_4 &emsp;  1.0
-<br> &nbsp;  url_3 &emsp;  1.0
-<br> &nbsp;  url_2 &emsp;  1.0
-<br> &nbsp;  url_1 &emsp;  1.0
- 
-The ranks RDD is initially populated with a value=1.0 for all the URLs. In the next part of the code sample we shall see how this ranks RDD is recalcualted at each iteration to converge, after 20 iterations, into the PageRank probability scores mentioned previously.  
+The above code creates "ranks0" - a key/value pair RDD by taking the key (URL) from the links RDD and assigning the value = 1.0 to it.  Ranks0 is the intial ranks RDD and it is populated with the seed number 1.0 (please see diagram below). In the 3rd part of the program we shall see how this ranks RDD is recalcualted at each iteration and eventually converges, after 20 iterations, into the PageRank probability scores mentioned previously.  
 
 ## Part 3: Looping and Calculating Contributions & Recalcualting Ranks
  
-Here is the heart and where the contributions are calculated and the ranks are recalculated based on those contributions in each iteration. The algorithm has 4 steps:
+This part is the heart of the PageRank algorithm. In each iteration, the contributions are calculated and the ranks are recalculated based on those contributions. The algorithm has 4 steps:
 
-<br> &nbsp; 1- Start the algorith with each page at rank 1
-<br> &nbsp; 2- Calculate URL contribution: contrib=rank/neighbour to it neighbour
+<br> &nbsp; 1- Start the algorithm with each page at rank 1
+<br> &nbsp; 2- Calculate URL contribution: contrib = rank/size
 <br> &nbsp; 3- Set each URL new rank = 0.15 + 0.85 x contrib
 <br> &nbsp; 4- Iterate to step 2 with the new rank 
 
 The corresponding code is as follows:
 
     for (i <- 1 to iters) {
-    (1)   val contribs = links.join(ranks)         // join to form RDD1
-    (2)          .values                           // extract values from RDD1 to form RDD2          
-    (3)          .flatMap{ case (urls, rank) =>    //
-                       val size = urls.size        //
-    (4)                   urls.map(url => (url, rank / size))
+    (1)   val contribs = links.join(ranks)         // join  -> RDD1
+    (2)          .values                           // extract values from RDD1 -> RDD2          
+    (3)          .flatMap{ case (urls, rank) =>    // RDD2 -> conbrib RDD
+                       val size = urls.size        
+    (4)                   urls.map(url => (url, rank / size))   // the ranks are distributed equally amongs the various URLs
                  }
-    (5)   ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _)
+    (5)   ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _) // ranks RDD
     }
     
-Lets start by decompose the algorithm in the first iteration into the varoius RDD generated in each line of code (please see diagram below for a visual description). In line 1, the links RDD and the ranks RDD are joined together to form RDD1
+The diagram below depicts the various RDD generated and the corresponding key/value pairs produced. In line 1, the links RDD and the ranks RDD are joined together to form RDD1. Then the values of RDD1 are extracted to form RDD2. In line 3, RDD2 is flatmapped to generate the contrib RDD. Line 4, is a bit tricky to understand. Basically, each URL assigned rank is distributed evenly amongs the URLs it references. For example URL_3 references URL_
 
 
+<img src="/images/img-3.jpg" width="806" height="594">
+
+Each 
