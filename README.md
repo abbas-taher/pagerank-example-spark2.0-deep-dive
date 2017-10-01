@@ -5,10 +5,10 @@
 
 <img src="/images/img-1.jpg" width="648" height="338">
 
-In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup) I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here are shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
+In a [previous article](https://github.com/abbas-taher/scala-eclipse-spark-hortonwork-project-setup) I have described the steps required to setup the project in Scala IDE for Eclipse and run the code on Hortonworks 2.5 Sandbox. Here we shall take a deep dive into how the algorithm works and try to uncover its implementation detail and how it actually runs. 
 
 ## Contents:
-- How the Algorith Works
+- How the Algorithm Works
 - Running the PageRank Program in Spark
 - Part 1: Reading the Data File
 - Part 2: Populating the Ranks Data - Initial Seeds
